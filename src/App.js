@@ -22,6 +22,21 @@ export default class App extends Component {
     this.onCheckClick = this.onCheckClick.bind(this);
   }
 
+  componentDidMount() {
+    let local = localStorage.getItem("item");
+    console.log(JSON.parse(local));
+    if (local) {
+      this.setState({
+        todoItems: JSON.parse(local),
+      });
+    }
+  }
+
+  componentDidUpdate() {
+    const { todoItems } = this.state;
+    localStorage.setItem("item", JSON.stringify(todoItems));
+  }
+
   onInputChange(e) {
     this.setState({
       newTodo: e.target.value,
